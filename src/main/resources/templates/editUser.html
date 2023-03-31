@@ -9,7 +9,7 @@
 <body>
 <h1>User Editor</h1>
 
-<form action="#" th:action="@{/admin/editUser}"  th:object="${user}"  method="post" >
+<form th:method="PATCH" th:action="@{/admin/editUser}"  th:object="${user}" >
   <div>
     <input type="text" id="id" name="id" th:value="${user.id}">
   </div>

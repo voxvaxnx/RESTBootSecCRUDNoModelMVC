@@ -13,8 +13,8 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(name = "username")
+    private Long id;
+    @Column(name = "username", unique = true)
     private String userName;
     @Column(name = "password")
     private String password;
@@ -31,7 +31,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return (Collection<? extends GrantedAuthority>) roles;
+        return roles;
     }
 
     public User(String eMail, String password, String userName) {

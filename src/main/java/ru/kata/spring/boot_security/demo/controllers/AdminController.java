@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.services.RoleService;
+import ru.kata.spring.boot_security.demo.services.RoleServiceImp;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 @Controller
@@ -13,10 +13,10 @@ import ru.kata.spring.boot_security.demo.services.UserService;
 public class AdminController {
 
     private final UserService userService;
-    private final RoleService roleService;
+    private final RoleServiceImp roleService;
 
     @Autowired
-    public AdminController(UserService userService, RoleService roleService) {
+    public AdminController(UserService userService, RoleServiceImp roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
@@ -34,13 +34,13 @@ public class AdminController {
         return "editUser";
     }
 
-    @PostMapping("/editUser")
+    @PatchMapping("/editUser")
     public String patchAdminRedactor(@ModelAttribute("user") User user) {
         userService.editUser(user);
         return "redirect:users";
     }
 
-    @GetMapping("/deleteUser/{id}")
+    @DeleteMapping("/deleteUser/{id}")
     public String adminDelete(@PathVariable("id") Long id) {
         userService.deleteUser((id));
         return "redirect:/admin/users";
