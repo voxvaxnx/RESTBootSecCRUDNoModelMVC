@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.UserServiceImpl;
-
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
 import java.util.Set;

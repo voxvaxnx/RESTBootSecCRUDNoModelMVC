@@ -11,9 +11,11 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "firstname")
     private String firstName;
 
@@ -22,10 +24,13 @@ public class User implements UserDetails {
 
     @Column(name = "age")
     private Integer age;
+
     @Column(name = "password")
     private String password;
+
     @Column(name = "email", unique = true)
     private String eMail;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -72,6 +77,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 
 }

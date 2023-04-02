@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
-
 import java.security.Principal;
 
 @Controller
@@ -27,7 +26,7 @@ public class AdminController {
     @GetMapping("/users")
     public String adminPage(@ModelAttribute("user") User user, Model model, Principal principal) {
         User curentUser = userService.getByeMail(principal.getName());
-        model.addAttribute("curentUser",curentUser);
+        model.addAttribute("curentUser", curentUser);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("roles", roleService.getRoles());
         return "users";
@@ -44,8 +43,6 @@ public class AdminController {
         userService.deleteUser((id));
         return "redirect:/admin/users";
     }
-
-
 
     @PostMapping("/addUser")
     public String registrationPost(@ModelAttribute("user") User user) {
