@@ -33,7 +33,6 @@ public class AdminController {
         return "users";
     }
 
-
     @PatchMapping("/editUser")
     public String patchAdminRedactor(@ModelAttribute("user") User user) {
         userService.editUser(user);
@@ -45,6 +44,8 @@ public class AdminController {
         userService.deleteUser((id));
         return "redirect:/admin/users";
     }
+
+
 
     @PostMapping("/addUser")
     public String registrationPost(@ModelAttribute("user") User user) {
