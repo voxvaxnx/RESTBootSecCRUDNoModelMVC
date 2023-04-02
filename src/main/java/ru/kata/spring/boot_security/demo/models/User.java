@@ -14,11 +14,17 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "username", unique = true)
-    private String userName;
+    @Column(name = "firstname")
+    private String firstName;
+
+    @Column(name = "lasttname")
+    private String lastName;
+
+    @Column(name = "age")
+    private Integer age;
     @Column(name = "password")
     private String password;
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String eMail;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "users_roles",
@@ -34,19 +40,17 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public User(String eMail, String password, String userName) {
+    public User(String eMail, String password, String firstName, String lastName, Integer age) {
         this.eMail = eMail;
         this.password = password;
-        this.userName = userName;
+        this.firstName = firstName;
+        this.age = age;
+        this.lastName = lastName;
     }
 
     @Override
     public String getUsername() {
-        return userName;
-    }
-
-    public void setUsername(String username) {
-        this.userName = username;
+        return eMail;
     }
 
     @Override
@@ -68,4 +72,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

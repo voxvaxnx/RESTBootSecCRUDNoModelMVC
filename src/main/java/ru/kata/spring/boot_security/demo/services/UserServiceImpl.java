@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public User getByUserName(String userName) {
-        return userRepository.getByUserName(userName);
+    public User getByeMail(String eMail) {
+        return userRepository.getByeMail(eMail);
     }
 
     @Override
@@ -56,19 +56,21 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public void editUser(User user) {
         User userToEdit = getById(user.getId());
         userToEdit.setEMail(user.getEMail());
+        userToEdit.setAge(user.getAge());
+        userToEdit.setLastName(user.getLastName());
+        userToEdit.setFirstName(user.getFirstName());
         if (!passwordEncoder.encode(user.getPassword()).equals(userToEdit.getPassword())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         userToEdit.setRoles(user.getRoles());
-        userToEdit.setUsername(user.getUsername());
         userRepository.save(userToEdit);
     }
 
     @Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = getByUserName(username);
+    public User loadUserByUsername(String eMail) throws UsernameNotFoundException {
+        User user = getByeMail(eMail);
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
+            throw new UsernameNotFoundException(String.format("User '%s' not found", eMail));
         }
         return user;
     }

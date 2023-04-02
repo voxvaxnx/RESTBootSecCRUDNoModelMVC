@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface UserService {
 
-   User getByUserName(String userName);
+   User getByeMail(String eMail);
 
     User getById(long id);
 
