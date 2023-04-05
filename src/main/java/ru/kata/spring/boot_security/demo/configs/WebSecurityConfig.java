@@ -30,16 +30,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/user/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/login", "/registration", "/error").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/api/**").permitAll()
                 .and()
-                .formLogin().loginPage("/login").loginProcessingUrl("/process_login")
-                .successHandler(successUserHandler)
+                .formLogin().successHandler(successUserHandler)
+                .loginPage("/login")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .permitAll()
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login");
+                .permitAll()
+                .logoutRequestMatcher((new AntPathRequestMatcher("/logout")))
+                .logoutSuccessUrl("/login")
+                .and()
+                .csrf().disable();
     }
 
     @Bean

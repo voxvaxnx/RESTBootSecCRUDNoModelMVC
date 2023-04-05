@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public User getById(long id) {
-        return userRepository.getById(id);
+    public User getById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -41,30 +41,29 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     @Transactional
-    public void deleteUser(long id) {
-        userRepository.delete(getById(id));
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 
     @Override
     @Transactional
     public void addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setUsername(user.getEmail());
         userRepository.save(user);
     }
 
     @Override
     @Transactional
     public void editUser(User user) {
-        User userToEdit = getById(user.getId());
-        userToEdit.setEMail(user.getEMail());
-        userToEdit.setAge(user.getAge());
-        userToEdit.setLastName(user.getLastName());
-        userToEdit.setFirstName(user.getFirstName());
-        if (!passwordEncoder.encode(user.getPassword()).equals(userToEdit.getPassword())) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
-        userToEdit.setRoles(user.getRoles());
-        userRepository.save(userToEdit);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setUsername(user.getEmail());
+        userRepository.save(user);
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.getByUsername(username);
     }
 
     @Override
@@ -75,4 +74,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         }
         return user;
     }
+
+
 }

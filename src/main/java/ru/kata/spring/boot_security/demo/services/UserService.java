@@ -6,14 +6,16 @@ public interface UserService {
 
    User getByeMail(String eMail);
 
-    User getById(long id);
+    User getById(Long id);
 
     List<User> getAllUsers();
 
-    void deleteUser(long id);
+    void deleteUser(Long id);
 
     void addUser(User user);
 
     void editUser(User user);
+
+    User getUserByUsername(String username);
 
 }
