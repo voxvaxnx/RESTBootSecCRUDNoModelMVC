@@ -170,7 +170,7 @@ function addUser() {
 
 // Get Authenticated User
 function getAuthenticatedUser() {
-    fetch('/api/user')
+    fetch('api/user')
         .then(res => res.json())
         .then(data => {
             $('#authenticatedUserEmail').append(data.email);
