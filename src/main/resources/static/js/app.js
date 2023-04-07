@@ -12,7 +12,7 @@ $(async function () {
 })
 
 async function getUser(id) {
-    let response = await fetch('/api/users/' + id)
+    let response = await fetch('/api/admins/' + id)
     return await response.json()
 }
 
@@ -31,7 +31,7 @@ async function fillModalForm(form, modal, id) {
 // Filling Users Table
 function fillUsersTable() {
     allUsersTable.empty()
-    fetch('/api/users')
+    fetch('/api/admins')
         .then(res => res.json())
         .then(data =>
             data.forEach(user => {
@@ -80,7 +80,7 @@ function editUser() {
             }
         }
 
-        fetch('/api/users', {
+        fetch('/api/admins', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -119,7 +119,7 @@ async function openDeleteModal(id) {
 function deleteUser() {
     deleteModalForm.addEventListener("submit", event => {
         event.preventDefault()
-        fetch("/api/users/" + deleteModalForm.id.value, {
+        fetch("/api/admins/" + deleteModalForm.id.value, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -146,7 +146,7 @@ function addUser() {
             }
         }
         console.log(newUserRoles);
-        fetch('/api/users', {
+        fetch('/api/admins', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
