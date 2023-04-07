@@ -10,7 +10,7 @@ import ru.kata.spring.boot_security.demo.services.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/admins")
 public class RestAdminController {
 
     private final UserService userService;
@@ -19,7 +19,7 @@ public class RestAdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/admins")
+    @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         final List<User> users = userService.getAllUsers();
         return users != null && !users.isEmpty()
@@ -27,7 +27,7 @@ public class RestAdminController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/admins/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
         User user = userService.getById(id);
         return user != null
@@ -35,19 +35,19 @@ public class RestAdminController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/admins")
+    @PostMapping
     public ResponseEntity<User> addNewUser(@RequestBody User user) {
         userService.addUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/admins")
+    @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         userService.editUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @DeleteMapping("/admins/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>("User with ID = " + id + " was deleted", HttpStatus.OK);

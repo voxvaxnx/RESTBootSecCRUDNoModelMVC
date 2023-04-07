@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class RestUserController {
 
     private final UserService userService;
@@ -19,7 +19,7 @@ public class RestUserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
+    @GetMapping
     public ResponseEntity<User> getAuthenticatedUser(Principal principal) {
         User user = userService.getByeMail(principal.getName());
         return user != null
